@@ -1,0 +1,58 @@
+package customermanagement.service;
+
+import customermanagement.dao.entities.Customer;
+import customermanagement.dao.repositories.CustomerRepository;
+import customermanagement.dto.CreateCustomerRequest;
+import customermanagement.dto.CustomerResponse;
+import customermanagement.dto.UpdateCustomerRequest;
+import customermanagement.mappers.CustomerMapper;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class CustomerManager implements CustomerService {
+    private final CustomerRepository customerRepository;
+    private final CustomerMapper customerMapper;
+
+
+    @Override
+    public CustomerResponse getCustomerById(Long id) {
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Customer with id " + id + " not found"));
+        return customerMapper.toResponse(customer);
+    }
+
+    @Override
+    public CustomerResponse createCustomer(CreateCustomerRequest request) {
+        Customer customer = customerMapper.toEntity(request);
+        customerRepository.save(customer);
+        return customerMapper.toResponse(customer);
+    }
+
+    @Override
+    public CustomerResponse updateCustomer(Long id, UpdateCustomerRequest request) {
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Customer with id " + id + " not found"));
+        customerMapper.updateCustomer(customer, request);
+        customerRepository.save(customer);
+        return customerMapper.toResponse(customer);
+    }
+
+    @Override
+    public List<CustomerResponse> getAllCustomers() {
+        return customerRepository.findAll()
+                .stream()
+                .map(customerMapper::toResponse)
+                .toList();
+    }
+
+    @Override
+    public void deleteCustomer(Long id) {
+        if(!customerRepository.existsById(id))
+            throw new RuntimeException("Customer with id " + id + " not found");
+        customerRepository.deleteById(id);
+    }
+}
