@@ -16,7 +16,7 @@ public class CustomerManagementApplication {
         SpringApplication.run(CustomerManagementApplication.class, args);
     }
 
-    @Bean
+    //@Bean
     public CommandLineRunner init(CustomerRepository customerRepository) {
         return args -> {
             customerRepository.save(new Customer(null,"David", "Smith","david@gmail.com",212, LocalDate.of(1980, 1, 1)));
