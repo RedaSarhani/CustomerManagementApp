@@ -27,7 +27,7 @@ public class CustomerMapper {
                 customer.getLastName(),
                 customer.getEmail(),
                 customer.getScore(),
-                customer.getDateOfBirth()
+                customer.getBirthDate()
         );
     }
 
@@ -36,7 +36,18 @@ public class CustomerMapper {
         if(request.getLastName() != null) customer.setLastName(request.getLastName());
         if(request.getEmail() != null) customer.setEmail(request.getEmail());
         if(request.getScore() != null) customer.setScore(request.getScore());
-        if(request.getBirthDate() != null) customer.setDateOfBirth(request.getBirthDate());
+        if(request.getBirthDate() != null) customer.setBirthDate(request.getBirthDate());
 
+    }
+
+    // converts entity to UpdateCustomerRequest for editing
+    public UpdateCustomerRequest toUpdateRequest(Customer customer) {
+        UpdateCustomerRequest request = new UpdateCustomerRequest();
+        request.setFirstName(customer.getFirstName());
+        request.setLastName(customer.getLastName());
+        request.setEmail(customer.getEmail());
+        request.setScore(customer.getScore());
+        request.setBirthDate(customer.getBirthDate());
+        return request;
     }
 }
