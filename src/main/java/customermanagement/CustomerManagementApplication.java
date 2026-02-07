@@ -19,7 +19,12 @@ public class CustomerManagementApplication {
     //@Bean
     public CommandLineRunner init(CustomerRepository customerRepository) {
         return args -> {
-            customerRepository.save(new Customer(null,"David", "Smith","david@gmail.com",212, LocalDate.of(1980, 1, 1)));
+            customerRepository.save(new Customer(null,"Amine", "Alaoui","alaoui@gmail.com",212, LocalDate.of(1980, 1, 1)));
+            customerRepository.save(new Customer(null,"Ahmad", "Amine","Ahmad@gmail.com",212, LocalDate.of(1980, 1, 1)));
+            customerRepository.save(new Customer(null,"Hanae", "Boutchich","Hello@gmail.com",212, LocalDate.of(1980, 1, 1)));
+            customerRepository.save(new Customer(null,"Imad", "Saji","ImdSji@gmail.com",212, LocalDate.of(1980, 1, 1)));
+            customerRepository.save(new Customer(null,"Ayoub", "aladin","bigboss@gmail.com",212, LocalDate.of(1980, 1, 1)));
+            customerRepository.save(new Customer(null,"Hiba", "kitty","hkitty@gmail.com",212, LocalDate.of(1980, 1, 1)));
         };
     }
 }
