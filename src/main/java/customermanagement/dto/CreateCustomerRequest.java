@@ -4,6 +4,7 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -26,5 +27,6 @@ public class CreateCustomerRequest {
 
     @Past
     @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")  // Add this annotation
     private LocalDate birthDate;
 }

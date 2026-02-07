@@ -1,8 +1,11 @@
 package customermanagement.dto;
 
+import lombok.Data;
+import lombok.Getter;
 import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
+
 
 public record CustomerResponse(
         Long id,

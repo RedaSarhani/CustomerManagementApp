@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -36,5 +37,7 @@ public class Customer {
 
     @NotNull
     @Past
-    private LocalDate dateOfBirth;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")  // Add this annotation
+    @Column(name = "date_of_birth")
+    private LocalDate birthDate;
 }
