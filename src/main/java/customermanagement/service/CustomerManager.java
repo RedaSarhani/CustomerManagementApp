@@ -17,6 +17,13 @@ public class CustomerManager implements CustomerService {
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
 
+    @Override
+    // Get a Customer as UpdateCustomerRequest for the edit form
+    public UpdateCustomerRequest getUpdateCustomerRequest(Long id) {
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Customer with id " + id + " not found"));
+        return customerMapper.toUpdateRequest(customer);
+    }
 
     @Override
     public CustomerResponse getCustomerById(Long id) {
