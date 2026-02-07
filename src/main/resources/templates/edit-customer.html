@@ -15,7 +15,24 @@
                     <h5 class="mb-0">Customer Informations</h5>
                 </div>
                 <div class="card-body">
-                    <form method="post" th:action="@{/new}" th:object="${customer}">
+                    <form method="post" th:action="@{/saveEdit(id=${customerId})}" th:object="${customer}">
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">ID</label>
+
+                                <input type="text"
+                                       class="form-control"
+                                       th:value="${customerId}"
+                                       readonly>
+
+                                <!-- Hidden field to submit -->
+                                <input type="hidden"
+                                       name="id"
+                                       th:value="${customerId}">
+
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">First Name</label>
@@ -61,7 +78,9 @@
                         <div class="row justify-content-center">
                             <div class="col-auto">
                                 <button class="btn btn-dark" type="submit">Submit</button>
+                                <a th:href="@{/}" class="btn btn-secondary">Cancel</a>
                             </div>
+
                         </div>
                     </form>
                 </div>
