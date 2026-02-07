@@ -1,4 +1,5 @@
 /mvnw text eol=lf
 *.cmd text eol=crlf
 *.java linguist-language=Java
-*.html linguist-language=HTML
+*.html linguist-generated
+
