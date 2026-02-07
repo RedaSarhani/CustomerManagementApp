@@ -4,6 +4,7 @@ import customermanagement.CustomerManagementApplication;
 import customermanagement.dao.entities.Customer;
 import customermanagement.dto.CreateCustomerRequest;
 import customermanagement.dto.CustomerResponse;
+import customermanagement.dto.UpdateCustomerRequest;
 import customermanagement.service.CustomerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,26 @@ public class CustomerWebController {
         return "redirect:/";
     }
 
+    @GetMapping("/editCustomer")
+    public String updateCustomer(Model model, @RequestParam(name = "id") Long id) {
+        UpdateCustomerRequest request = customerService.getUpdateCustomerRequest(id);
+        model.addAttribute("customer", request);
+        model.addAttribute("customerId", id);// only for POST URL or hidden input
+        return "edit-customer";
+    }
 
-    
+    @PostMapping("/saveEdit")
+    public String updateCustomer(Model model,
+                                 @RequestParam Long id,
+                                 @Valid @ModelAttribute("customer") UpdateCustomerRequest request,
+                                 BindingResult result) {
+        if (result.hasErrors()) {
+            return "edit-customer";
+        }
+        customerService.updateCustomer(id, request);
+        return "redirect:/";
+    }
+
+
+
 }
