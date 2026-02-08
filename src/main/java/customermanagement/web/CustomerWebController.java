@@ -16,6 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Controller
@@ -72,9 +74,16 @@ public class CustomerWebController {
     // MVC only accept Post/Get
     // Never Use Get for Deleting
     @PostMapping("/deleteCustomer")
-    public String deleteCustomer(@RequestParam(name = "id") Long id) {
+    public String deleteCustomer(@RequestParam(name = "id") Long id,
+                                 @RequestParam(required = false) String keyword,
+                                 @RequestParam(required = false, defaultValue = "0") Integer page) {
         customerService.deleteCustomer(id);
-        return "redirect:/";
+        if(!keyword.isBlank() && keyword != null){
+            return "redirect:/?page="+page+ "&keyword=" + keyword;
+                            //"?page=" + page + "&keyword=" + URLEncoder.encode(keyword, StandardCharsets.UTF_8);
+        }
+        return "redirect:/?page="+page;
+
     }
 
     @GetMapping("/editCustomer")
