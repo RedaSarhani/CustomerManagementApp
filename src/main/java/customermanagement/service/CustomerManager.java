@@ -7,6 +7,10 @@ import customermanagement.dto.CustomerResponse;
 import customermanagement.dto.UpdateCustomerRequest;
 import customermanagement.mappers.CustomerMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +27,13 @@ public class CustomerManager implements CustomerService {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Customer with id " + id + " not found"));
         return customerMapper.toUpdateRequest(customer);
+    }
+
+    @Override
+    public Page<CustomerResponse> getCustomers(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Customer> customers = customerRepository.findAll(pageable);
+        return customers.map(customerMapper::toResponse);
     }
 
     @Override
