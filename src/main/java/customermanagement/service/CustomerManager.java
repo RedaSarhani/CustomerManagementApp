@@ -73,4 +73,11 @@ public class CustomerManager implements CustomerService {
             throw new RuntimeException("Customer with id " + id + " not found");
         customerRepository.deleteById(id);
     }
+
+    @Override
+    public Page<CustomerResponse> searchCustomers(String keyword, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Customer> customers = customerRepository.findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(keyword, keyword, pageable);
+        return customers.map(customerMapper::toResponse);
+    }
 }

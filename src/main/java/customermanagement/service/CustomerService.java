@@ -18,4 +18,5 @@ public interface CustomerService {
     void deleteCustomer(Long id);
     UpdateCustomerRequest getUpdateCustomerRequest(Long id);
     Page<CustomerResponse> getCustomers(int page, int size);
+    public Page<CustomerResponse> searchCustomers(String keyword, int page, int size);
 }

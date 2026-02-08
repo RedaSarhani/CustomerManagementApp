@@ -37,12 +37,19 @@ public class CustomerWebController {
     @GetMapping("/")
     public String showCustomers(Model model,
                                 @RequestParam(name = "page", defaultValue = "0") int page,
-                                @RequestParam(name = "size", defaultValue = "5")  int size) {
-        Page<CustomerResponse> Pgecustomers = customerService.getCustomers(page, size);
-        model.addAttribute("customers", Pgecustomers.getContent());
+                                @RequestParam(name = "size", defaultValue = "5") int size,
+                                @RequestParam(name = "keyword", defaultValue = "") String keyword) {
+        Page<CustomerResponse> pagecustomers = customerService.getCustomers(page, size);
+        if(keyword.isBlank()){
+            pagecustomers =  customerService.getCustomers(page, size);
+        }else {
+            pagecustomers = customerService.searchCustomers(keyword,page,size);
+        }
+        model.addAttribute("customers", pagecustomers.getContent());
         model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages",Pgecustomers.getTotalPages());
+        model.addAttribute("totalPages",pagecustomers.getTotalPages());
         model.addAttribute("size", size);
+        model.addAttribute("keyword", keyword);
         return "index";
     }
 
