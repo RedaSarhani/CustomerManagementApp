@@ -8,6 +8,9 @@ import customermanagement.dto.UpdateCustomerRequest;
 import customermanagement.service.CustomerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,11 +26,23 @@ public class CustomerWebController {
     public CustomerWebController(CustomerService customerService) {
         this.customerService = customerService;
     }
+// Not suitable for pagination
+//    @GetMapping("/")
+//    public String showCustomer(Model model) {
+//        List<CustomerResponse> customers = customerService.getAllCustomers();
+//        model.addAttribute("customers", customers);
+//        return "index";
+//    }
 
     @GetMapping("/")
-    public String showCustomer(Model model) {
-        List<CustomerResponse> customers = customerService.getAllCustomers();
-        model.addAttribute("customers", customers);
+    public String showCustomers(Model model,
+                                @RequestParam(name = "page", defaultValue = "0") int page,
+                                @RequestParam(name = "size", defaultValue = "5")  int size) {
+        Page<CustomerResponse> Pgecustomers = customerService.getCustomers(page, size);
+        model.addAttribute("customers", Pgecustomers.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages",Pgecustomers.getTotalPages());
+        model.addAttribute("size", size);
         return "index";
     }
 
