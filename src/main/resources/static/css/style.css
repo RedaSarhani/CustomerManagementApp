@@ -1,0 +1,61 @@
+body {
+    padding-top: 70px;
+    /*background-color: black;*/
+    background-image: url("../img/background.jpg");
+    background-size: cover;       /* make it cover the entire page */
+    background-repeat: no-repeat; /* no tiling */
+    background-position: center;  /* center the image */
+    background-attachment: fixed;
+}
+/* ===== Page buttons ===== */
+nav .pagination .page-item .page-link {
+    color: white !important;              /* text color for all buttons */
+    background-color: black !important; /* default button background */
+    border: 1px solid #dee2e6 !important; /* light border */
+}
+
+/* ===== Active page button ===== */
+nav .pagination .page-item.active .page-link {
+    background-color: green !important; /* bright Bootstrap primary blue */
+    color: white !important;             /* white text */
+}
+
+/* ===== Hover effect ===== */
+nav .pagination .page-item:not(.active) .page-link:hover {
+    background-color: #153015 !important;  /* light hover gray */
+    color: #f0f0f0 !important;                /* black text on hover */
+}
+
+/* ===== Disabled buttons ===== */
+nav .pagination .page-item.disabled .page-link {
+    color: white !important;             /* muted text */
+    background-color: #3B3B3B !important;
+
+}
+
+.custom-card {
+    background-color: rgba(0, 0, 0, 0.5) !important; /* semi-transparent black */
+    border: 1px solid rgba(255, 255, 255, 0.2);      /* optional border */
+}
+
+.custom-card .card-body .custom-table{
+    background-color: rgba(0, 0, 0, 0.5) !important; /* semi-transparent black */
+}
+
+/* Make table transparent */
+.custom-table thead td, .custom-table tbody td, .custom-table thead th, .custom-table tbody th  {
+    background-color: rgba(0, 0, 0, 0) !important;
+    color: white
+}
+
+
+
+/* Optional: table rows slightly transparent on hover */
+.custom-table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Keep text visible */
+/*.custom-card, .custom-table, .custom-card .card-header {*/
+/*    color: #fff !important;*/
+/*}*/
