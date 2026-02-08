@@ -39,7 +39,7 @@ public class CustomerWebController {
     @GetMapping("/")
     public String showCustomers(Model model,
                                 @RequestParam(name = "page", defaultValue = "0") int page,
-                                @RequestParam(name = "size", defaultValue = "5") int size,
+                                @RequestParam(name = "size", defaultValue = "7") int size,
                                 @RequestParam(name = "keyword", defaultValue = "") String keyword) {
         Page<CustomerResponse> pagecustomers = customerService.getCustomers(page, size);
         if(keyword.isBlank()){
