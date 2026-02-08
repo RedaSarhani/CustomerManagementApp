@@ -64,6 +64,13 @@
                 </tr>
                 </thead>
                 <tbody>
+                <!-- No search results message -->
+                <tr th:if="${customers.isEmpty()}">
+                    <td colspan="7" class="text-center text-white">
+                        No customers found
+                    </td>
+                </tr>
+
                     <tr th:each="customer : ${customers}">
                         <th scope="row" th:text="${customer.id}"></th>
                         <td th:text="${customer.firstName}"></td>
@@ -103,7 +110,7 @@
                     <li class="page-item"
                         th:classappend="${currentPage == 0} ? 'disabled'">
                         <a class="page-link"
-                           th:href="@{/(page=${currentPage - 1}, size=${size})}">
+                           th:href="@{/(page=${currentPage - 1}, size=${size}, keyword=${keyword})}">
                             Previous
                         </a>
                     </li>
@@ -113,7 +120,7 @@
                         th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
                         th:classappend="${i == currentPage} ? 'active'">
                         <a class="page-link"
-                           th:href="@{/(page=${i}, size=${size})}"
+                           th:href="@{/(page=${i}, size=${size}, keyword=${keyword})}"
                            th:text="${i + 1}">
                         </a>
                     </li>
@@ -122,7 +129,7 @@
                     <li class="page-item"
                         th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
                         <a class="page-link"
-                           th:href="@{/(page=${currentPage + 1}, size=${size})}">
+                           th:href="@{/(page=${currentPage + 1}, size=${size}, keyword=${keyword})}">
                             Next
                         </a>
                     </li>
